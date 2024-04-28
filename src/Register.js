@@ -1,12 +1,14 @@
 // src/Register.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from './api'; // import the registerUser function from api.js
+import Header from './Header';
+import { registerUser } from './api';
 
 const Register = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
-    username: '',
+    firstname: '',
+    lastname: '',
     password: '',
     email: '',
   });
@@ -18,9 +20,10 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await registerUser(user); // use registerUser function from api.js
+      const response = await registerUser(user);
       if (response) {
         navigate('/login');
+        navigate.push('/login');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -28,47 +31,61 @@ const Register = () => {
   };
 
   return (
-    <div className="col-md-6 offset-md-3">
-      <h3 className="mb-4">Register</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Username</label>
-          <input
-            type="text"
-            className="form-control"
-            name="username"
-            value={user.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            value={user.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input
-            type="email"
-            className="form-control"
-            name="email"
-            value={user.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Register
-        </button>
-      </form>
-    </div>
+    <>
+      <Header isLoggedIn={false} />
+      <div className="col-md-6 offset-md-3">
+        <h3 className="mb-4">Register</h3>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>First Name</label>
+            <input
+              type="text"
+              className="form-control"
+              name="firstname"
+              value={user.firstname}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Last Name</label>
+            <input
+              type="text"
+              className="form-control"
+              name="lastname"
+              value={user.lastname}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              className="form-control"
+              name="password"
+              value={user.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              className="form-control"
+              name="email"
+              value={user.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit" className="btn btn-primary mt-3">
+            Register
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 

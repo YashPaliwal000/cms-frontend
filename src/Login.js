@@ -3,22 +3,24 @@ import { Link } from 'react-router-dom';
 import { loginUser } from './api'; // Import loginUser function from api.js
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = { username, password };
+      const user = { email, password };
       const response = await loginUser(user); // Call the loginUser function from api.js
-      if (response) {
+      if (response && response.token) {
         console.log('Login successful');
         // Redirect the user to another page or update the UI as needed
+        // For now, let's redirect the user to the home page
+        window.location.href = '/home';
       }
     } catch (error) {
       console.error('Error:', error);
-      setError('Invalid username or password');
+      setError('Invalid email or password');
     }
   };
 
@@ -34,14 +36,14 @@ const Login = () => {
               {error && <div className="alert alert-danger">{error}</div>}
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label htmlFor="username" className="form-label">Username</label>
+                  <label htmlFor="email" className="form-label">Email</label>
                   <input
-                    type="text"
+                    type="email"
                     className="form-control"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Enter your username"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
                     required
                   />
                 </div>
