@@ -9,6 +9,8 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "framer-motion": "^11.1.7",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-focus-lock": "^2.12.0",
